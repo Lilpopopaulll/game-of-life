@@ -1,0 +1,81 @@
+{
+    "global": {
+        "font_path": "freesansbold.ttf",
+        "font_size": 14,
+        "font_colour": "#FFFFFFFF",
+        "link_normal_colour": "#FFFFFFFF",
+        "link_hover_colour": "#FFFFFFFF",
+        "link_active_colour": "#FFFFFFFF"
+    },
+    "button": {
+        "colours": {
+            "normal_bg": "#000000FF",
+            "hovered_bg": "#333333FF",
+            "disabled_bg": "#111111FF",
+            "selected_bg": "#222222FF",
+            "active_bg": "#444444FF",
+            "normal_border": "#FFFFFFFF",
+            "hovered_border": "#FFFFFFFF",
+            "disabled_border": "#FFFFFFFF",
+            "selected_border": "#FFFFFFFF",
+            "active_border": "#FFFFFFFF",
+            "normal_text": "#FFFFFFFF",
+            "hovered_text": "#FFFFFFFF",
+            "disabled_text": "#888888FF",
+            "selected_text": "#FFFFFFFF",
+            "active_text": "#FFFFFFFF"
+        },
+        "misc": {
+            "shape": "rectangle",
+            "border_width": 1,
+            "shadow_width": 0,
+            "font": "freesansbold",
+            "font_size": 14
+        }
+    },
+    "label": {
+        "colours": {
+            "normal_text": "#FFFFFFFF"
+        },
+        "misc": {
+            "font": "freesansbold",
+            "font_size": 14
+        }
+    },
+    "text_entry_line": {
+        "colours": {
+            "normal_bg": "#000000FF",
+            "normal_text": "#FFFFFFFF",
+            "disabled_bg": "#111111FF",
+            "disabled_text": "#888888FF",
+            "active_bg": "#222222FF",
+            "active_text": "#FFFFFFFF",
+            "normal_border": "#FFFFFFFF",
+            "active_border": "#FFFFFFFF",
+            "disabled_border": "#888888FF",
+            "text_hover": "#FFFFFFFF",
+            "selected_bg": "#333333FF",
+            "selected_text": "#FFFFFFFF"
+        },
+        "misc": {
+            "font": "freesansbold",
+            "font_size": 14,
+            "shape": "rectangle",
+            "border_width": 1,
+            "shadow_width": 0
+        }
+    },
+    "panel": {
+        "colours": {
+            "bg": "#000000FF"
+        }
+    },
+    "#with_icon": {
+        "button": {
+            "colours": {
+                "normal_bg": "#000000FF",
+                "hovered_bg": "#333333FF"
+            }
+        }
+    }
+}
