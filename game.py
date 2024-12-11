@@ -1,6 +1,7 @@
 # game.py
 
 import pygame
+import numpy as np
 import pygame_gui
 from analyse import Analyseur
 from moteur import MoteurDeJeu
@@ -10,6 +11,7 @@ from helpers import (
     draw_grid, draw_cells, get_cells_in_selection, enregistrer_historique,
     sauvegarder_grille, charger_grille, generate_random_grid
 )
+from pattern_detection import *
 import random
 
 def main():
@@ -48,6 +50,7 @@ def main():
 
     # Définir les dimensions et positions des boutons
     button_width = 80
+    affichage_calcul = 0
     button_height = status_bar_height - 20  # Laisser une marge
     button_margin = 10
     button_names = [
@@ -59,7 +62,9 @@ def main():
         ('save', 'Sauvegarder'),
         ('load', 'Charger'),
         ('selection', 'Sélection'),
-        ('graph', 'Graphique')
+        ('graph', 'Graphique'),
+        ('calc', 'Calcul'),
+        ('detect', 'Detection')
     ]
     num_buttons = len(button_names)
 
@@ -286,11 +291,14 @@ def main():
         object_id=pygame_gui.core.ObjectID(class_id='@taille_input', object_id='#taille_input')
     )
     taille_input.set_text(str(settings['random_grid_size']))
-
     running = True
     while running:
-        time_delta = clock.tick(simulation_speed) / 1000.0
+        time_delta = clock.tick(simulation_speed) / 1000.0  # Temps en secondes
 
+        # Pour l'affichage, nous ajustons la taille de la grille en fonction du zoom
+        grid_size_for_print = 23 * (23 / TAILLE_CELLULE)  # Plus la taille de la cellule baisse, plus la grille augmente
+
+        time_ratio = time_delta + time_delta/grid_size_for_print
         # Mettre à jour l'état des touches
         keys_pressed = pygame.key.get_pressed()
 
@@ -518,6 +526,16 @@ def main():
                         moteur.cellules_vivantes = cellules_chargees
                         historique.clear()
                         index_historique = -1
+                elif event.ui_element == buttons['detect'] :
+                    print(detect_patterns(moteur.cellules_vivantes, predefined_patterns))
+                    #test_crapaud(predefined_patterns)
+                    print("------------------------------------------------------------------------")
+                elif event.ui_element == buttons['calc'] :
+                    if affichage_calcul == 0:
+                        affichage_calcul = 1
+                    else :
+                        affichage_calcul = 0
+
                 elif event.ui_element == buttons['selection']:
                     # Basculement du mode de sélection
                     selection_mode = not selection_mode
@@ -580,7 +598,7 @@ def main():
             index_historique += 1
             moteur.etape_suivante(settings['survie'], settings['naissance'])
             # Enregistrer la population actuelle
-            analyseur.enregistrer_population(len(moteur.cellules_vivantes))
+            analyseur.enregistrer_population(len(moteur.cellules_vivantes), time_ratio)
         else:
             # Même si la simulation est en pause, on met à jour le graphique
             pass
@@ -641,6 +659,12 @@ def main():
         plot_surface = pygame.transform.scale(plot_surface, (graph_width, int(graph_height)))
         screen.blit(plot_surface, (grid_width, 0))
 
+        if affichage_calcul == 1 :
+            # Pour l'affichage du graphique du ratio
+            ratio_surface = analyseur.get_ratio_plot_surface()
+            ratio_surface = pygame.transform.scale(ratio_surface, (graph_width, int(graph_height)))
+            screen.blit(ratio_surface, (grid_width, graph_height))
+            pygame.display.flip()
         pygame.display.flip()
 
     pygame.quit()

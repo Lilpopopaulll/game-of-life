@@ -1,3 +1,5 @@
+from pattern_detection import *
+
 class MoteurDeJeu:
     def __init__(self):
         self.cellules_vivantes = set()
@@ -38,3 +40,4 @@ class MoteurDeJeu:
                     nouvelles_cellules_vivantes.add(cellule)
 
         self.cellules_vivantes = nouvelles_cellules_vivantes
+
